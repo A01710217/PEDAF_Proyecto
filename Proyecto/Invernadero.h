@@ -22,7 +22,7 @@ class Invernadero {
     public:
         //Metodos
         std::vector<std::string>& getInvernadero(); //Obtener el vector
-        void agregarFlor(const std::string &flor); //Agrega determinada cantidad de flores al vector
+        void agregarFlor(std::string &flor); //Agrega determinada cantidad de flores al vector
         void imprimirInvernadero(); //Imprime el vector
         void ordenaSeleccion(std::vector<std::string> &); //Metodo de ordenamiento
         int busqBinaria(const std::vector<std::string> &, const std::string &); //Metodo de busqueda binaria
@@ -38,7 +38,11 @@ std::vector<std::string>& Invernadero::getInvernadero() {
     return invernadero;
 }
 
-void Invernadero::agregarFlor(const std::string &flor) {
+void Invernadero::agregarFlor(std::string &flor) {
+    //Ciclo for para convertir a minusculas
+    for (char &c : flor) {
+        c = tolower(c);
+    }
     invernadero.push_back(flor);
 }
 
@@ -46,7 +50,7 @@ void Invernadero::imprimirInvernadero() {
     if (invernadero.empty()) std::cout << "No hay flores en el invernadero." << std::endl;
     else {
         std::cout << "Flores en el invernadero:" << std::endl;
-        for (int i = 0; i < invernadero.size(); i++) {
+        for (int i = 0; i < invernadero.size() - 1; i++) {
             std::cout << invernadero[i] << std::endl;
         }
     }
