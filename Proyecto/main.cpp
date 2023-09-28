@@ -2,12 +2,13 @@
 // Nombre: main.cpp
 // Autor: Axel Camacho Villafuerte.
 // Fecha: 14/09/2023.
-// Versión: 2.0.0.
+// Versión: 2.0.4.
 // Descripción: Un invernadero.
 // =========================================================
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 //#include <algorithm>
 
 #include "Invernadero.h"
@@ -23,27 +24,41 @@ int main() {
     //Inicialización de variables
     string flor; //Nombre de la flor
     int floresAnadir; //Número de flores a ingresar
-    string valor; //String a buscar en la lista
+    string florAbuscar; //String a buscar en la lista
     int index; //Indice de la lista
+
+    //Abrir el archivo
+    ifstream inputfile("flores.txt");
+    string linea;
+
+    //Verificar si el archivo se abrió correctamente
+    if (!inputfile.is_open()) {
+        cout << "main.cpp" << ": File \"" << "flores.txt" << "\" not found\n";
+        return -1;
+    }
 
     //Variable para guardar la opción
     int opcion = 0;
 
     //Ciclar menú
-    while (opcion != 5) {    
+    while (opcion != 6) {
         //Menú
-        cout << "¿Qué haras hoy en tu invernadero?\n"
+        cout << "¿Qué harás hoy en tu invernadero?\n"
             << "1.- Imprimir el invernadero\n" 
             << "2.- Añadir flores al invernadero\n"
             << "3.- Ordenar flores\n" 
-            << "4.- Busqueda binaria\n"
-            << "5.- Salir" << endl;
+            << "4.- Busqueda binaria de flores\n"
+            << "5.- Llenar invernadero con un archivo.txt\n"
+            << "6.- Finalizar" << endl;
 
         //Solicitar al usuario que ingrese un valor
-        cout << "Ingrese una opción (1, 2, 3, 4 o 5): ";
+        cout << "Ingrese una opción (1, 2, 3, 4, 5 o 6): ";
         cin >> opcion;
 
-        //Switch
+        //Limpia la terminal de windows
+        system("cls");
+
+        //Switch para opcciones
         switch (opcion) {
             case 1:
                 //Imprimir el invernadero
@@ -81,16 +96,36 @@ int main() {
                 
                 //Flor a buscar
                 cout << "Flor a buscar: " << endl;
-                cin >> valor;
+                cin >> florAbuscar;
+
+                //Ciclo for para convertir a minusculas
+                for (char &c : florAbuscar) {
+                    c = tolower(c);
+                }
 
                 //Guardar indice de la lista
-                index = invernadero.busqBinaria(invernadero.getInvernadero(), valor);
+                index = invernadero.busqBinaria(invernadero.getInvernadero(), florAbuscar);
                 //Condicional para imprimir si existe, si no imprimir el indice
                 if (index == -1) cout << "Flor no encontrada" << endl;
                 else cout << index << endl;
                 break;
 
             case 5:
+                //Verifica si el archivo está cerrado
+                if (!inputfile.is_open()) {
+                    cout << "El archivo está cerrado." << endl;
+                    break;
+                }
+                //Leer cada línea del archivo y agregarla al vector
+                while (getline(inputfile, linea)) {
+                    invernadero.agregarFlor(linea);
+                }
+
+                //Cerrar el archivo después de leer
+                inputfile.close();
+                break;
+
+            case 6:
                 //Terminar programa
                 cout << "Finalizando" << endl;
                 break;
