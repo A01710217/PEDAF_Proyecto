@@ -1,8 +1,8 @@
 // =========================================================
 // Nombre: main.cpp
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 14/09/2023.
-// Versión: 2.0.4.
+// Fecha: 15/10/2023.
+// Versión: 2.9.5.
 // Descripción: Un invernadero.
 // =========================================================
 
@@ -17,7 +17,7 @@ using namespace std;
 
 int main() {
     //Crear un objeto de la clase Invernadero
-    Invernadero invernadero;
+    Invernadero<string> invernadero;
     
     //sort(invernadero.getInvernadero().begin(), invernadero.getInvernadero().end());
 
@@ -47,7 +47,7 @@ int main() {
             << "1.- Imprimir el invernadero\n" 
             << "2.- Añadir flores al invernadero\n"
             << "3.- Ordenar flores\n" 
-            << "4.- Busqueda binaria de flores\n"
+            << "4.- Buscar una flor\n"
             << "5.- Llenar invernadero con un archivo.txt\n"
             << "6.- Finalizar" << endl;
 
@@ -61,8 +61,12 @@ int main() {
         //Switch para opcciones
         switch (opcion) {
             case 1:
+                if (invernadero.empty() == true) {
+                    cout << "No hay flores en el invernadero." << endl;
+                    break;
+                }
                 //Imprimir el invernadero
-                invernadero.imprimirInvernadero();
+                cout << invernadero.imprimirInvernadero() << endl;
                 break;
 
             case 2:
@@ -79,20 +83,24 @@ int main() {
                 break;
 
             case 3:
+                //Condicional que verifica si existe una flor en el invernadero
+                if (invernadero.empty() == true) {
+                    cout << "No hay flores en el invernadero." << endl;
+                    break;
+                }
                 //Ordenar el invernadero
-                invernadero.ordenaSeleccion(invernadero.getInvernadero());
+                invernadero.seleccionSort();
                 break;
 
             case 4:
-                //Condicional que verifica si existe el arreglo
-                //.empty() devolver True o False si un vector esta lleno o vacío
-                if (invernadero.getInvernadero().empty()) {
+                //Condicional que verifica si existe una flor en el invernadero
+                if (invernadero.empty() == true) {
                     cout << "No hay flores en el invernadero." << endl;
                     break;
                 }
 
                 //Ordenar el invernadero
-                invernadero.ordenaSeleccion(invernadero.getInvernadero());
+                invernadero.seleccionSort();
                 
                 //Flor a buscar
                 cout << "Flor a buscar: " << endl;
@@ -104,10 +112,10 @@ int main() {
                 }
 
                 //Guardar indice de la lista
-                index = invernadero.busqBinaria(invernadero.getInvernadero(), florAbuscar);
+                invernadero.search(florAbuscar);
                 //Condicional para imprimir si existe, si no imprimir el indice
-                if (index == -1) cout << "Flor no encontrada" << endl;
-                else cout << index << endl;
+                if (invernadero.search(florAbuscar) == -1) cout << "Flor no encontrada" << endl;
+                else cout << invernadero.search(florAbuscar) << endl;
                 break;
 
             case 5:
@@ -116,6 +124,9 @@ int main() {
                     cout << "El archivo está cerrado." << endl;
                     break;
                 }
+
+                cout << "Llenando invernadero..." << endl;
+
                 //Leer cada línea del archivo y agregarla al vector
                 while (getline(inputfile, linea)) {
                     invernadero.agregarFlor(linea);
