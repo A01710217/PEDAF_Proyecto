@@ -18,3 +18,12 @@
 - void update(int, T); O(n)
 - void deleteAt(int); O(n)
 - void seleccionSort(); O(n)
+
+#### Se agrego un archivo test.cpp:
+###### En el archivo se crearon casos, provando lafuncionalidad de los metodos mas importantes:
+- void agregarFlor(T); 
+- int search(T); 
+- void update(int, T); 
+- void deleteAt(int); 
+- void seleccionSort();
+- bool empty() const
