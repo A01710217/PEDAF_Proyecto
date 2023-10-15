@@ -1,7 +1,7 @@
 // =========================================================
 // Nombre: Invernadero.h
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 14/09/2023.
+// Fecha: 15/10/2023.
 // //Descripción: Creacción de un invernadero
 // =========================================================
 
@@ -9,97 +9,205 @@
 #define INVERNADERO_H
 
 #include <iostream>
-#include <vector>
+#include <string>
+#include <sstream>
 
-class Invernadero {
-    private:
-        //Variables
-        std::vector<std::string> invernadero; //Definir nuestro vector
-        //Metodos de ayuda para organizar valores
-        void intercambiarFlores(std::vector<std::string> &, int, int); //Metodo visto en clase, intercambia valores de los indices
-        //Metodo auxiliar para busqueda recurisva
-        int bs_aux(std::vector<std::string> &, int, int, std::string val);
-    public:
-        //Metodos
-        std::vector<std::string>& getInvernadero(); //Obtener el vector
-        void agregarFlor(std::string &flor); //Agrega determinada cantidad de flores al vector
-        void imprimirInvernadero(); //Imprime el vector
-        void ordenaSeleccion(std::vector<std::string> &); //Metodo de ordenamiento
-        int busqBinaria(const std::vector<std::string> &, const std::string &); //Metodo de busqueda binaria
+template <class T> class Invernadero; //Adelantar declaracion de clase invernadero
+
+template <class T>
+class Link {
+	private:
+		//Variables
+    	std::string value;
+    	Link<T>* next;
+
+		//Constructores
+		Link(T);
+		//Definir clase link como amiga de la clase List
+		friend class Invernadero<T>;
 };
 
-void Invernadero::intercambiarFlores(std::vector<std::string> &v, int i, int j) {
-	std::string aux = v[i];
-	v[i] = v[j];
-	v[j] = aux;
+template <class T>
+Link<T>::Link(T val) : value(val), next(nullptr) {}
+
+template <class T>
+class Invernadero {
+	private:
+		//Variables
+		Link<T> *head;
+
+    public:
+		//Constructor
+		Invernadero();
+		//Destructor
+        ~Invernadero();
+		//Metodos
+        bool empty() const; //Metodo empty() para saber si la lista está vacía
+        void clear(); //Metodo clear() para borrar la lista
+
+		void agregarFlor(T); //Metodo insertion() para insertar un elemento
+		int search(T); //Devuelve el indice del elemento buscado
+    	void update(int, T); //Metodo update() para actualizar un elemento
+    	void deleteAt(int); //Metodo deleteAt() para borrar un elemento
+        void seleccionSort(); //Metodo selectionSort() para ordenar la lista
+		
+		T imprimirInvernadero() const; //Metodo toString() para convertir la lista en string
+};
+
+template <class T>
+Invernadero<T>::Invernadero() : head(nullptr) {}
+
+template <class T>
+Invernadero<T>::~Invernadero() {
+	clear();
 }
 
-std::vector<std::string>& Invernadero::getInvernadero() {
-    return invernadero;
+//Metodo clear() visto en clase
+template <class T>
+void Invernadero<T>::clear() {
+	//Creamos dos punteros auxiliares
+	Link<T> *p, *q;
+
+	//Inicializamos p con el valor de head
+	p = head;
+	//Ciloc while para recorrer la lista y borrar los nodos
+	while (p != 0) {
+		q = p->next;
+		delete p;
+		p = q;
+	}
+	//Asignamos el valor de head a nullptr
+	head = 0;
 }
 
-void Invernadero::agregarFlor(std::string &flor) {
-    //Ciclo for para convertir a minusculas
+template <class T>
+bool Invernadero<T>::empty() const {
+	return (head == 0);
+}
+
+template <class T>
+void Invernadero<T>::agregarFlor(T flor) {
+    //Ciclo para convertir a minusculas
     for (char &c : flor) {
         c = tolower(c);
     }
-    invernadero.push_back(flor);
+
+	//Creamos un nuevo nodo
+    Link<T>* newVal = new Link<T>(flor);
+
+    if (head == 0) {
+        head = newVal;
+    } else {
+        Link<T>* current = head;
+        while (current->next != 0) {
+            current = current->next;
+        }
+        current->next = newVal;
+    }
 }
 
-void Invernadero::imprimirInvernadero() {
-    if (invernadero.empty()) std::cout << "No hay flores en el invernadero." << std::endl;
-    else {
-        std::cout << "Flores en el invernadero:" << std::endl;
-        for (int i = 0; i < invernadero.size() - 1; i++) {
-            std::cout << invernadero[i] << std::endl;
+template <class T>
+int Invernadero<T>::search(T flor) {
+    //Ciclo para convertir a minusculas
+    for (char &c : flor) {
+        c = tolower(c);
+    }
+
+	Link<T> *current = head;
+	int index = 0;
+	while (current) {
+		if (current->value == flor) {
+			return index;
+		}
+		current = current->next;
+		index++;
+	}
+	return -1;
+}
+
+template <class T>
+void Invernadero<T>::update(int index, T flor) {
+    //Ciclo para convertir a minusculas
+    for (char &c : flor) {
+        c = tolower(c);
+    }
+
+    //Creamos un puntero auxiliar para recorrer la lista
+    Link<T> *current = head;
+
+    //Mediante un cilco for, recorremos hasta llegar al índice deseado
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+
+    //Actualizamos el valor en el índice dado
+    current->value = flor;
+}
+
+template <class T>
+void Invernadero<T>::deleteAt(int index) {
+    if (index == 0) {
+        Link<T> *temp = head;
+        head = head->next;
+        delete temp;
+    } else {
+        Link<T> *current = head;
+        int currentIndex = 0;
+        while (current) {
+            if (currentIndex == index - 1) {
+                Link<T> *temp = current->next;
+                current->next = temp->next;
+                delete temp;
+            }
+            current = current->next;
+            currentIndex++;
         }
     }
 }
 
-void Invernadero::ordenaSeleccion(std::vector<std::string> &invernadero) {
-    if (invernadero.empty()) std::cout << "No hay flores que ordenar en el invernadero." << std::endl;
-    else {
-        int posicion;
+template <class T>
+void Invernadero<T>::seleccionSort() {
+    Link<T> *p, *q, *min;
+    p = head;
+    
+    while (p != nullptr) {
+        min = p;
+        q = p->next;
 
-        for (int i = invernadero.size() - 1; i > 0; i--) {
-            posicion = 0;
-            for (int j = 1; j <= i; j++) {
-                if (invernadero[j] > invernadero[posicion]) {
-                    posicion = j;
-                }
+        while (q != nullptr) {
+            if (q->value < min->value) {
+                min = q;
             }
-
-            if (posicion != i) {
-                intercambiarFlores(invernadero, i, posicion);
-            }
+            q = q->next;
         }
-    }
 
+        if (min != p) {
+            // Swap the values of p and min
+            std::string temp = p->value;
+            p->value = min->value;
+            min->value = temp;
+        }
+
+        p = p->next;
+    }
 }
 
-int Invernadero::bs_aux(std::vector<std::string> &invernadero, int low, int high, std::string val) {
-    //Inicializar variable mid
-    int mid;
- 
-    //Condicion de paro
-    if (low <= high) {
-        mid = (high + low) / 2; //Obtener medio
-        int compare_result = val.compare(invernadero[mid]); //Comparar el valor con el valor del indece mid
-        //Condicional para hacer recursión
-        if (compare_result == 0)
-            return mid; //Regresar indice del valor
-        else if (compare_result < 0)
-            return bs_aux(invernadero, low, mid - 1, val); //Recursión, busqueda binaria en el extremo inferior
-        else
-            return bs_aux(invernadero, mid + 1, high, val); //Recursión, busqueda binaria en el extremo superior
-    }
-    return -1;  //Flor no encontrada.
-}
+template <class T>
+T Invernadero<T>::imprimirInvernadero() const {
+	std::stringstream aux;
+	Link<T> *p;
 
-int Invernadero::busqBinaria(const std::vector<std::string> &invernadero, const std::string &val) {
-    std::vector<std::string> copia_invernadero = invernadero; //Hacer una copia del invernadero
-    //Retornar indice
-    return bs_aux(copia_invernadero, 0, invernadero.size() - 1, val);
+	p = head;
+	aux << "[";
+	while (p != 0) {
+		aux << p->value;
+		if (p->next != 0) {
+			aux << ", ";
+		}
+		p = p->next;
+	}
+	aux << "]";
+	return aux.str();
 }
 
 #endif
