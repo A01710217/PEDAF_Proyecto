@@ -26,4 +26,4 @@
 - void update(int, T); 
 - void deleteAt(int); 
 - void seleccionSort();
-- bool empty() const
+- void clear();
