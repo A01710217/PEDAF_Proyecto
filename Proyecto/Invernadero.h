@@ -1,8 +1,8 @@
 // =========================================================
 // Nombre: Invernadero.h
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 15/10/2023.
-// //Descripción: Creacción de un invernadero
+// Fecha: 13/11/2023.
+// Descripción: Creacción de un invernadero
 // =========================================================
 
 #ifndef INVERNADERO_H
@@ -18,8 +18,9 @@ template <class T>
 class Link {
 	private:
 		//Variables
-    	std::string value;
+    	T value;
     	Link<T>* next;
+        Link<T>* prev; //Agregar este puntero
 
 		//Constructores
 		Link(T);
@@ -28,13 +29,14 @@ class Link {
 };
 
 template <class T>
-Link<T>::Link(T val) : value(val), next(nullptr) {}
+Link<T>::Link(T val) : value(val), next(nullptr), prev(nullptr) {}
 
 template <class T>
 class Invernadero {
 	private:
 		//Variables
 		Link<T> *headFlores;
+        void intercambiar(Link<T>* , Link<T>* ); //Metodo intercambiar() para intercambiar dos elementos
 
     public:
 		//Constructor
@@ -49,9 +51,13 @@ class Invernadero {
 		int search(T); //Devuelve el indice del elemento buscado
     	void update(int, T); //Metodo update() para actualizar un elemento
     	void deleteAt(int); //Metodo deleteAt() para borrar un elemento
-        void seleccionSort(); //Metodo selectionSort() para ordenar la lista
+        Link<T>* partition(Link<T>*, Link<T>*); //Metodo partition() para ordenar la lista
+        void quicksort_Aux(Link<T>*, Link<T>*); //Metodo quicksort_Aux() para ordenar la lista
+
+        void quicksort(); //Metodo quicksort() para ordenar la lista
 
         int getTamno(); //Metodo getTamno() para obtener el tamaño de la lista
+        Link<T>* getUltimo(); //Metodo getUltimo() para obtener el ultimo elemento de la lista
 		
         T imprimirInvernaderoArchivo() const; //Metodo toString() para convertir la lista en string
 		T imprimirInvernadero() const; //Metodo toString() para convertir la lista en string
@@ -104,17 +110,11 @@ void Invernadero<T>::agregarFlor(T flor) {
     }
 
 	//Creamos un nuevo nodo
-    Link<T>* newVal = new Link<T>(flor);
+    Link<T>* newLink = new Link<T>(flor);
 
-    if (headFlores == 0) {
-        headFlores = newVal;
-    } else {
-        Link<T>* current = headFlores;
-        while (current->next != 0) {
-            current = current->next;
-        }
-        current->next = newVal;
-    }
+    newLink->next = headFlores;
+    if (headFlores != nullptr) headFlores->prev = newLink;
+    headFlores = newLink;
 }
 
 template <class T>
@@ -156,6 +156,50 @@ void Invernadero<T>::update(int index, T flor) {
 }
 
 template <class T>
+void Invernadero<T>::intercambiar(Link<T>* a, Link<T>* b) {
+    T temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+}
+
+template <class T>
+Link<T>* Invernadero<T>::partition(Link<T>* low, Link<T>* high) {
+    T pivot = high->value;
+    Link<T>* i = low->prev;
+
+    for (Link<T>* j = low; j != high; j = j->next) {
+        if (j->value <= pivot) {
+            i = (i == nullptr) ? low : i->next;
+            intercambiar(i, j);
+        }
+    }
+    i = (i == nullptr) ? low : i->next;
+    intercambiar(i, high);
+    return i;
+}
+
+template <class T>
+void Invernadero<T>::quicksort_Aux(Link<T>* low, Link<T>* high) {
+    if (high != nullptr && low != high && low != high->next) {
+        Link<T>* p = partition(low, high);
+        quicksort_Aux(low, p->prev);
+        quicksort_Aux(p->next, high);
+    }
+}
+
+template <class T>
+void Invernadero<T>::quicksort() {
+    quicksort_Aux(headFlores, getUltimo()); 
+}
+
+template <class T>
+Link<T>* Invernadero<T>::getUltimo() {
+    Link<T>* temp = headFlores;
+    while (temp != nullptr && temp->next != nullptr) temp = temp->next;
+    return temp;
+}
+
+template <class T>
 void Invernadero<T>::deleteAt(int index) {
     if (index == 0) {
         Link<T> *temp = headFlores;
@@ -173,32 +217,6 @@ void Invernadero<T>::deleteAt(int index) {
             current = current->next;
             currentIndex++;
         }
-    }
-}
-
-template <class T>
-void Invernadero<T>::seleccionSort() {
-    Link<T> *p, *q, *min;
-    p = headFlores;
-    
-    while (p != nullptr) {
-        min = p;
-        q = p->next;
-
-        while (q != nullptr) {
-            if (q->value < min->value) {
-                min = q;
-            }
-            q = q->next;
-        }
-
-        if (min != p) {
-            std::string temp = p->value;
-            p->value = min->value;
-            min->value = temp;
-        }
-
-        p = p->next;
     }
 }
 
@@ -242,14 +260,14 @@ T Invernadero<T>::imprimirInvernadero() const {
 
     aux << "[";	
     p = headFlores;
-    while (p != 0) {
+    while (p) {
         aux << p->value;
         if (p->next != 0) {
             aux << ", ";
         }
         p = p->next;
     }
-    aux << "[";	
+    aux << "]";	
 
     return aux.str();
 }
