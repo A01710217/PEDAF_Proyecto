@@ -1,8 +1,8 @@
 // =========================================================
 // Nombre: test.cpp
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 15/10/2023.
-// Versión: 0.0.5.
+// Fecha: 13/11/2023.
+// Versión: 0.0.7.
 // Descripción: Probar funcionalidades del Invernadero.h.
 // =========================================================
 
@@ -18,46 +18,58 @@ int main() {
 
 	pruebaI.agregarFlor("tulipanes");
 	ans = "[tulipanes]";
-	cout << "\n" <<"1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
+	cout <<"1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
 	pruebaI.agregarFlor("ROSAS");
     pruebaI.agregarFlor("gIrASoLES");
 	pruebaI.agregarFlor("Orquideas");
-	ans = "[tulipanes, rosas, girasoles, orquideas]";
+
+	pruebaI.quicksort();
+	ans = "[girasoles, orquideas, rosas, tulipanes]";
 	cout << "\n" <<"2.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
-	cout << "\n" <<"3.- esperada " << 1 << " programa " << pruebaI.search("Rosas") << "\n";
-	cout <<	(1 == pruebaI.search("Rosas") ? "success\n" : "fail\n");
+	cout << "\n" <<"3.- esperada " << 2 << " programa " << pruebaI.search("Rosas") << "\n";
+	cout <<	(2 == pruebaI.search("Rosas") ? "success\n" : "fail\n");
 	cout << "\n" <<"4.- esperada " << -1 << " programa " << pruebaI.search("Petunia") << "\n";
 	cout <<	(-1 == pruebaI.search("Petunia") ? "success\n" : "fail\n");
 
 	pruebaI.update(1, "Lirios");
-	ans = "[tulipanes, lirios, girasoles, orquideas]";
+	ans = "[girasoles, lirios, rosas, tulipanes]";
 	cout << "\n" <<"5.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
-	pruebaI.update(3, "Clavel");
-	ans = "[tulipanes, lirios, girasoles, clavel]";
+	pruebaI.quicksort();
+	ans = "[girasoles, lirios, rosas, tulipanes]";
+	cout << "\n" <<"5.1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
+	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
+
+	pruebaI.update(2, "Clavel");
+	ans = "[girasoles, lirios, clavel, tulipanes]";
 	cout << "\n" <<"6.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout << (!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
+	pruebaI.quicksort();
+	ans = "[clavel, girasoles, lirios, tulipanes]";
+	cout << "\n" <<"6.1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
+	cout << (!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
+
 	pruebaI.deleteAt(0);
-	ans = "[lirios, girasoles, clavel]";
+	ans = "[girasoles, lirios, tulipanes]";
 	cout << "\n" <<"7.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
 	pruebaI.deleteAt(1);
-	ans = "[lirios, clavel]";
+	ans = "[girasoles, tulipanes]";
 	cout << "\n" <<"8.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
-    cout << "\n" <<"9.- esperada " << -1 << "\n programa " << pruebaI.search("tulipanes") << "\n";
-    cout <<	(-1 == pruebaI.search("tulipanes") ? "success\n" : "fail\n");
+    cout << "\n" <<"9.- esperada " << -1 << "\n programa " << pruebaI.search("lirios") << "\n";
+    cout <<	(-1 == pruebaI.search("lirios") ? "success\n" : "fail\n");
 
-    cout << "\n" <<"10.- esperada " << 1 << "\n programa " << pruebaI.search("clavel") << "\n";
-    cout <<	(1 == pruebaI.search("clavel") ? "success\n" : "fail\n");
+    cout << "\n" <<"10.- esperada " << 1 << "\n programa " << pruebaI.search("tulipanes") << "\n";
+    cout <<	(1 == pruebaI.search("tulipanes") ? "success\n" : "fail\n");
 
     pruebaI.clear();
     ans = "[]";
