@@ -27,5 +27,5 @@
 - int search(T); 
 - void update(int, T); 
 - void deleteAt(int); 
-- void seleccionSort();
+- void quicksort();
 - void clear();
