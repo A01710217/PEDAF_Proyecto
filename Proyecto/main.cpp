@@ -1,8 +1,8 @@
 // =========================================================
 // Nombre: main.cpp
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 15/10/2023.
-// Versión: 2.9.5.
+// Fecha: 12/11/2023.
+// Versión: 3.1.9.
 // Descripción: Un invernadero.
 // =========================================================
 
@@ -29,7 +29,12 @@ int main() {
 
     //Abrir el archivo
     ifstream inputfile("flores.txt");
+    ofstream outputFile("output.txt");
     string linea;
+
+    //Abrir los archivos
+    //inputfile.open("flores.txt");
+    //outputFile.open("output.txt");
 
     //Verificar si el archivo se abrió correctamente
     if (!inputfile.is_open()) {
@@ -43,16 +48,16 @@ int main() {
     //Ciclar menú
     while (opcion != 6) {
         //Menú
-        cout << "¿Qué harás hoy en tu invernadero?\n"
+        cout << "Que haras hoy en tu invernadero?\n"
             << "1.- Imprimir el invernadero\n" 
-            << "2.- Añadir flores al invernadero\n"
-            << "3.- Ordenar flores\n" 
+            << "2.- Anadir flores al invernadero\n"
+            << "3.- Ordenar flores de la A a la Z\n" 
             << "4.- Buscar una flor\n"
             << "5.- Llenar invernadero con un archivo.txt\n"
             << "6.- Finalizar" << endl;
 
         //Solicitar al usuario que ingrese un valor
-        cout << "Ingrese una opción (1, 2, 3, 4, 5 o 6): ";
+        cout << "Ingrese una opcion (1, 2, 3, 4, 5 o 6): ";
         cin >> opcion;
 
         //Limpia la terminal de windows
@@ -71,12 +76,12 @@ int main() {
 
             case 2:
                 //Ingresar número de flores a añadir
-                cout << "Número de flores a añadir: ";
+                cout << "Numero de flores a anadir: ";
                 cin >> floresAnadir;
                 //Añadir flores al invernadero
                 //Ciclo
                 for (int i = 0; i < floresAnadir; i++) {
-                    cout << "Flores a añadir: " << endl;
+                    cout << "Flores a anadir: " << endl;
                     cin >> flor;
                     invernadero.agregarFlor(flor);
                 }
@@ -138,6 +143,15 @@ int main() {
 
             case 6:
                 //Terminar programa
+                cout << "Generando archivo..." << endl;
+                //Imprimir el invernadero
+                outputFile << invernadero.imprimirInvernaderoArchivo();
+                //Cerrar el archivo después de escribir
+                outputFile.close();
+
+                //Limpiar la lista
+                invernadero.clear();
+
                 cout << "Finalizando" << endl;
                 break;
                 
