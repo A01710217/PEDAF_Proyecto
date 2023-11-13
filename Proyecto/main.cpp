@@ -2,7 +2,7 @@
 // Nombre: main.cpp
 // Autor: Axel Camacho Villafuerte.
 // Fecha: 12/11/2023.
-// Versión: 3.1.9.
+// Versión: 3.2.0.
 // Descripción: Un invernadero.
 // =========================================================
 
@@ -94,7 +94,7 @@ int main() {
                     break;
                 }
                 //Ordenar el invernadero
-                invernadero.seleccionSort();
+                invernadero.quicksort();
                 break;
 
             case 4:
@@ -105,7 +105,7 @@ int main() {
                 }
 
                 //Ordenar el invernadero
-                invernadero.seleccionSort();
+                invernadero.quicksort();
                 
                 //Flor a buscar
                 cout << "Flor a buscar: " << endl;
