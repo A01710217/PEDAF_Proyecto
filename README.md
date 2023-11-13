@@ -6,8 +6,9 @@
 - Un "cout" del registro del invernadero.
 - Un metodo void agregarFlor(T), que añade nombres (strings) de flores.
 - Un metodo de ordenamiento, por el metodo de "selección de ordenamiento".
-- Y un metodo de busqueda, el cual buscar flores en el invernadero.
+- Un metodo de busqueda, el cual buscar flores en el invernadero.
 - Un opcción que te permita llenar el arreglo con un archivo .txt.
+- Un opccón para finalizar y genear un archivo .txt, lleno de lo que se realize en el main().
 
 #### Proximamente:
 - Usar el metodo de "Quick sort".
