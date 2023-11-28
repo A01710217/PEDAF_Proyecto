@@ -12,12 +12,11 @@
 
 #### Proximamente:
 - Modificación del readme
-- Retroalimentación del avance 3
 
 #### Análisis asintótica del archivo "Invernadero.h":
+- T imprimirInvernadero() const; O(n)
 - void agregarFlor(T); O(n)
 - int search(T); O(n)
-- void update(int, T); O(n)
 - void deleteAt(int); O(n)
 - void quicksort(); O(nlog(n))
 
@@ -29,3 +28,15 @@
 - void deleteAt(int); 
 - void quicksort();
 - void clear();
+
+
+
+
+# Referencias:
+#### Quick Sort In C++ With Examples. (2023, June 18). Software Testing Help. https://www.softwaretestinghelp.com/quick-sort/
+#### c++ Ordenamiento QuickSort. (2021, October 6). c++ Ordenamiento QuickSort. Stack Overflow En Español. https://es.stackoverflow.com/questions/488722/c-ordenamiento-quicksort
+#### C Program for QuickSort. (2014, January 7). GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/cpp-program-for-quicksort/
+
+‌
+
+‌
