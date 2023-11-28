@@ -1,7 +1,7 @@
 // =========================================================
 // Nombre: Invernadero.h
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 13/11/2023.
+// Fecha: 27/11/2023.
 // Descripción: Creacción de un invernadero
 // =========================================================
 
@@ -49,7 +49,6 @@ class Invernadero {
 
 		void agregarFlor(T); //Metodo agregarFlor() para insertar un elemento
 		int search(T); //Devuelve el indice del elemento buscado
-    	void update(int, T); //Metodo update() para actualizar un elemento
     	void deleteAt(int); //Metodo deleteAt() para borrar un elemento
         Link<T>* partition(Link<T>*, Link<T>*); //Metodo partition() para ordenar la lista
         void quicksort_Aux(Link<T>*, Link<T>*); //Metodo quicksort_Aux() para ordenar la lista
@@ -109,7 +108,7 @@ void Invernadero<T>::agregarFlor(T flor) {
         c = tolower(c);
     }
 
-	//Creamos un nuevo nodo
+    //Creamos un nuevo nodo
     Link<T>* newLink = new Link<T>(flor);
 
     newLink->next = headFlores;
@@ -137,25 +136,6 @@ int Invernadero<T>::search(T flor) {
 }
 
 template <class T>
-void Invernadero<T>::update(int index, T flor) {
-    //Ciclo para convertir a minusculas
-    for (char &c : flor) {
-        c = tolower(c);
-    }
-
-    //Creamos un puntero auxiliar para recorrer la lista
-    Link<T> *current = headFlores;
-
-    //Mediante un cilco for, recorremos hasta llegar al índice deseado
-    for (int i = 0; i < index; i++) {
-        current = current->next;
-    }
-
-    //Actualizamos el valor en el índice dado
-    current->value = flor;
-}
-
-template <class T>
 void Invernadero<T>::intercambiar(Link<T>* a, Link<T>* b) {
     T temp = a->value;
     a->value = b->value;
@@ -169,10 +149,12 @@ Link<T>* Invernadero<T>::partition(Link<T>* low, Link<T>* high) {
 
     for (Link<T>* j = low; j != high; j = j->next) {
         if (j->value <= pivot) {
+            //Si el indice es nulo, se le asigna el valor de low, si no, se le asigna el valor de i->next
             i = (i == nullptr) ? low : i->next;
             intercambiar(i, j);
         }
     }
+    //Si el indice es nulo, se le asigna el valor de low, si no, se le asigna el valor de i->next
     i = (i == nullptr) ? low : i->next;
     intercambiar(i, high);
     return i;
