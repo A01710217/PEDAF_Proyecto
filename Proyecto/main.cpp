@@ -1,9 +1,9 @@
 // =========================================================
 // Nombre: main.cpp
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 12/11/2023.
-// Versión: 3.2.0.
-// Descripción: Un invernadero.
+// Fecha: 27/11/2023.
+// Versión: 3.2.1.
+// Descripción: Un registro de un invernadero.
 // =========================================================
 
 #include <iostream>
