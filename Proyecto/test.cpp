@@ -1,8 +1,8 @@
 // =========================================================
 // Nombre: test.cpp
 // Autor: Axel Camacho Villafuerte.
-// Fecha: 13/11/2023.
-// Versión: 0.0.7.
+// Fecha: 27/11/2023.
+// Versión: 1.0.0.
 // Descripción: Probar funcionalidades del Invernadero.h.
 // =========================================================
 
@@ -35,33 +35,37 @@ int main() {
 	cout << "\n" <<"4.- esperada " << -1 << " programa " << pruebaI.search("Petunia") << "\n";
 	cout <<	(-1 == pruebaI.search("Petunia") ? "success\n" : "fail\n");
 
-	pruebaI.update(1, "Lirios");
-	ans = "[girasoles, lirios, rosas, tulipanes]";
+	pruebaI.deleteAt(1);
+	ans = "[girasoles, rosas, tulipanes]";
 	cout << "\n" <<"5.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
+	pruebaI.agregarFlor("clavel");
+
 	pruebaI.quicksort();
-	ans = "[girasoles, lirios, rosas, tulipanes]";
+	ans = "[clavel, girasoles, rosas, tulipanes]";
 	cout << "\n" <<"5.1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
-	pruebaI.update(2, "Clavel");
-	ans = "[girasoles, lirios, clavel, tulipanes]";
+	pruebaI.deleteAt(2);
+	ans = "[clavel, girasoles, tulipanes]";
 	cout << "\n" <<"6.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout << (!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
+	pruebaI.agregarFlor("Alcatraces");
+
 	pruebaI.quicksort();
-	ans = "[clavel, girasoles, lirios, tulipanes]";
+	ans = "[alcatraces, clavel, girasoles, tulipanes]";
 	cout << "\n" <<"6.1.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout << (!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
 	pruebaI.deleteAt(0);
-	ans = "[girasoles, lirios, tulipanes]";
+	ans = "[clavel, girasoles, tulipanes]";
 	cout << "\n" <<"7.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
 	pruebaI.deleteAt(1);
-	ans = "[girasoles, tulipanes]";
+	ans = "[clavel, tulipanes]";
 	cout << "\n" <<"8.- esperada " << ans << "\n programa " << pruebaI.imprimirInvernadero() << "\n";
 	cout <<	(!ans.compare(pruebaI.imprimirInvernadero()) ? "success\n" : "fail\n");
 
