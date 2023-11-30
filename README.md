@@ -30,13 +30,21 @@
 - void clear();
 
 
+## SICT0302B: Toma decisiones.
 
+### Selecciona y usa una estructura adecuada al problema.
 
-# Referencias:
+##### Usé una "Linked list", devido a que la cantidad de datos son 130. Para esta cantidad nesesitaba una estructura donde la inserciónn y la eliminación son sensillas y eficientes. También me son de utilidad devido a que la asignación de memoria dinámica y puedo agregar tantoas datos como lo nesesite el registro. 
+
+### Selecciona un algoritmo de ordenamiento adecuado al problema.
+
+#### Usé el algoritmo de ordenamiento Quick sort, este algoritmo organiza nombres de flores de la A a la Z. Este algoritmo esta implemnetado en Invernadero.h.
+
+## SICT0301B: Evalúa los componentes.
+
+## SICT0303B: Implementa acciones científicas.
+
+## Referencias:
 #### Quick Sort In C++ With Examples. (2023, June 18). Software Testing Help. https://www.softwaretestinghelp.com/quick-sort/
 #### c++ Ordenamiento QuickSort. (2021, October 6). c++ Ordenamiento QuickSort. Stack Overflow En Español. https://es.stackoverflow.com/questions/488722/c-ordenamiento-quicksort
 #### C Program for QuickSort. (2014, January 7). GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/cpp-program-for-quicksort/
-
-‌
-
-‌
