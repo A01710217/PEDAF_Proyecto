@@ -10,17 +10,6 @@
 - Un opcción que te permita llenar el arreglo con un archivo .txt.
 - Un opccón para finalizar y genear un archivo .txt, lleno de lo que se realize en el main().
 
-#### Proximamente:
-- Modificación del readme
-
-#### Se agrego un archivo test.cpp:
-###### En el archivo se crearon casos, provando lafuncionalidad de los metodos mas importantes:
-- void agregarFlor(T); 
-- int search(T); 
-- void update(int, T); 
-- void deleteAt(int); 
-- void quicksort();
-- void clear();
 
 ## SICT0301B: Evalúa los componentes.
 
@@ -40,13 +29,13 @@
 - Link<T>* getUltimo(); es O(n) debido a que tiene un ciclo while que recorre toda la linked list y obtiene el ultimo valor, n dependera del tamaño de la linked list.
 - T imprimirInvernaderoArchivo() const; es O(n) solo tiene un while que llena un stringstream, n dependera del tamaño de la linked list.
 - T imprimirInvernadero() const; es O(n) solo tiene un while que llena un stringstream, n dependera del tamaño de la linked list.
-
+##### Por lo que el análisis asintótico de la linked list sera de O(n) debido a los metodos que la componen todos son O(n).
 
 ### Hace un análisis de complejidad correcto y completo para todos los demás componentes del programa y determina la complejidad final del programa.
 
 ##### Análisis asintótica del main.cpp:
-- int main(); es O()
-- 
+- int main(); es O(n) devido a un while que esta dentro, n dependera del input del usuario. Pero el quick sort puede tener una complejidad de O(nlog(n)) o O(n²) si el pivote esta mal.
+##### Concluyendo el main() es de complejidad O(nlog(n)) si el pivote del quick sort esta bien colocado, en caso de que no la complejidad seria de O(n³).
 
 ## SICT0302B: Toma decisiones.
 
@@ -64,15 +53,29 @@
 
 ### Implementa mecanismos para consultar información de las estructras correctos.
 
-#####
+##### El programa tiene estos metodos para acceder a las estructuras:
+- int search(T); Metodo para buscar un nombre de una flor (string) (opción 4 del programa)
+- T imprimirInvernaderoArchivo() const; Metodo para llenar un archivo con un stringstream (opción 1 del programa)
+- T imprimirInvernadero() const; Metodo para imprimir un archivo con un stringstream (opción 6 del programa)
 
 ### Implementa mecanismos de lectura de archivos para cargar datos a las estructuras de manera correcta.
 
-#####
+##### Se implemento una opción dentro del programa (opción 5) para añadir los datos a la linked list, datos que provienen de un archivo txt.
 
 ### Implementa mecanismos de escritura de archivos para guardar los datos  de las estructuras de manera correcta.
 
-#####
+##### Al finalizar el programa, automaticamente se genera un output de un archivo.txt donde se cargara lo realizado durante la ejecución del programa (acciones reflejadas en el txt: nada, llenado o ordenamiento de los strings). 
+
+
+
+## Archivo test.cpp:
+
+#### Se agrego un archivo test.cpp:
+###### En el archivo se crearon casos, provando lafuncionalidad de los metodos mas importantes:
+- void agregarFlor(T); 
+- int search(T); 
+- void quicksort();
+- void clear();
 
 
 ## Referencias:
