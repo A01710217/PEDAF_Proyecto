@@ -2,7 +2,7 @@
 
 ### Este proyecto es un catálogo de nombres de flores (strings).
 
-#### En el cual habarcare estos puntos:
+#### En el cual se abarca estos puntos:
 - Un "cout" del registro del invernadero.
 - Un metodo void agregarFlor(T), que añade nombres (strings) de flores.
 - Un metodo de ordenamiento, por el metodo de "Quick sort".
